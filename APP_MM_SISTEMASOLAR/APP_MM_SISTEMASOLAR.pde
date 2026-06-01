@@ -58,30 +58,6 @@ void draw() {
   ui.beginDraw();
   ui.clear();
   ui.textAlign(CENTER, CENTER);
-  
-  x = width - botaoLargura - 10;
-  y = 20;
-  boolean hoverSair = mouseX > x && mouseX < x + botaoLargura &&
-                      mouseY > y && mouseY < y + botaoAltura;
-
-  ui.fill(255, 0, 0);
-
-  if (hoverSair) {
-    ui.stroke(255);
-    ui.strokeWeight(3);
-  } else {
-    ui.noStroke();
-  }
-
-  ui.rect(x, y, botaoLargura, botaoAltura, 12);
-
-  ui.fill(255);
-  ui.textSize(height * 0.03);
-  ui.text("X",
-          x + botaoLargura/2,
-          y + botaoAltura/2);
-
-  ui.strokeWeight(1);
 
   if (selectedPlanetObj != null && (estado == 0 || estado == 1)) {
     targetCamTarget = selectedPlanetObj.getAbsolutePosition();
@@ -146,7 +122,31 @@ void draw() {
   if (estado == 2) desenhaQuiz(ui);
   if (estado == 3) desenhaCreditos(ui);
   if (estado == 4) desenhaSelecaoNivel(ui);
+  
+  x = width - botaoLargura - 10;
+  y = 20;
+  boolean hoverSair = mouseX > x && mouseX < x + botaoLargura &&
+                      mouseY > y && mouseY < y + botaoAltura;
 
+  ui.fill(255, 0, 0);
+
+  if (hoverSair) {
+    ui.stroke(255);
+    ui.strokeWeight(3);
+  } else {
+    ui.noStroke();
+  }
+
+  ui.rect(x, y, botaoLargura, botaoAltura, 12);
+
+  ui.fill(255);
+  ui.textSize(height * 0.03);
+  ui.text("X",
+          x + botaoLargura/2,
+          y + botaoAltura/2);
+
+  ui.strokeWeight(1);
+  
   ui.endDraw();
   image(ui, 0, 0);
 
