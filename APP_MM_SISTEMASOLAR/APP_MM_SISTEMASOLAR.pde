@@ -139,11 +139,17 @@ void mousePressed() {
   }
 
   if (estado == 1) {
-    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.78 && mouseY < height*0.78 + height*0.07) {
+    // Botão Voltar (posição 0.63)
+    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.63 && mouseY < height*0.63 + height*0.07) {
       estado = 0;
       selectedPlanetObj = null;
     }
-    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.88 && mouseY < height*0.88 + height*0.07) {
+    // Botão Detalhes (posição 0.73)
+    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.73 && mouseY < height*0.73 + height*0.07) {
+      abrirDetalhes();
+    }
+    // Botão Quiz (posição 0.83)
+    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.83 && mouseY < height*0.83 + height*0.07) {
       perguntaAtual = 0; pontuacao = 0; respondeu = false; acertou = false; quizFim = false;
       estado = 2;
     }

@@ -1,3 +1,28 @@
+import java.awt.Desktop;
+import java.net.URI;
+
+// URLs da Wikipedia
+String[] planetaURLs = {
+  "https://pt.wikipedia.org/wiki/Merc%C3%BArio_(planeta)",  // 0 - Mercúrio
+  "https://pt.wikipedia.org/wiki/V%C3%AAnus_(planeta)",     // 1 - Vênus
+  "https://pt.wikipedia.org/wiki/Terra",                    // 2 - Terra
+  "https://pt.wikipedia.org/wiki/Marte_(planeta)",          // 3 - Marte
+  "https://pt.wikipedia.org/wiki/J%C3%BApiter_(planeta)",   // 4 - Júpiter
+  "https://pt.wikipedia.org/wiki/Saturno_(planeta)",        // 5 - Saturno
+  "https://pt.wikipedia.org/wiki/Urano_(planeta)",          // 6 - Urano
+  "https://pt.wikipedia.org/wiki/Netuno_(planeta)"          // 7 - Netuno
+};
+
+void abrirDetalhes() {
+  if (planetaClicado >= 0 && planetaClicado < planetaURLs.length) {
+    try {
+      Desktop.getDesktop().browse(new URI(planetaURLs[planetaClicado]));
+    } catch (Exception e) {
+      println("Erro ao abrir URL: " + e.getMessage());
+    }
+  }
+}
+
 void desenhaInfo(PGraphics g) {
   g.fill(0, 0, 20, 220);
   g.stroke(255, 220, 50);
@@ -54,20 +79,31 @@ void desenhaInfo(PGraphics g) {
     g.fill(200, 240, 255);  g.textSize(height*0.028);  g.text("Netuno e o planeta mais distante do Sol.\nEle possui alguns dos ventos mais fortes do Sistema Solar.", width/2, height*0.52);
   }
 
+  // --- Botão Voltar (movido para cima: 0.63) ---
   boolean hoverVoltar = mouseX > width*0.35 && mouseX < width*0.65 &&
-                        mouseY > height*0.78 && mouseY < height*0.78 + height*0.07;
+                        mouseY > height*0.63 && mouseY < height*0.63 + height*0.07;
   g.fill(50, 100, 200);
   if (hoverVoltar) { g.stroke(255); g.strokeWeight(3); } else { g.noStroke(); }
-  g.rect(width*0.35, height*0.78, width*0.30, height*0.07, 12);
+  g.rect(width*0.35, height*0.63, width*0.30, height*0.07, 12);
   g.fill(255); g.textSize(height*0.030);
-  g.text("< Voltar", width/2, height*0.78 + height*0.035);
+  g.text("< Voltar", width/2, height*0.63 + height*0.035);
 
+  // --- Botão Detalhes (novo, posição 0.73) ---
+  boolean hoverDetalhes = mouseX > width*0.35 && mouseX < width*0.65 &&
+                          mouseY > height*0.73 && mouseY < height*0.73 + height*0.07;
+  g.fill(160, 60, 200);
+  if (hoverDetalhes) { g.stroke(255); g.strokeWeight(3); } else { g.noStroke(); }
+  g.rect(width*0.35, height*0.73, width*0.30, height*0.07, 12);
+  g.fill(255); g.textSize(height*0.030);
+  g.text("Detalhes (Wikipedia)", width/2, height*0.73 + height*0.035);
+
+  // --- Botão Quiz (posição 0.83) ---
   boolean hoverQuiz = mouseX > width*0.35 && mouseX < width*0.65 &&
-                      mouseY > height*0.88 && mouseY < height*0.88 + height*0.07;
+                      mouseY > height*0.83 && mouseY < height*0.83 + height*0.07;
   g.fill(40, 150, 70);
   if (hoverQuiz) { g.stroke(255); g.strokeWeight(3); } else { g.noStroke(); }
-  g.rect(width*0.35, height*0.88, width*0.30, height*0.07, 12);
+  g.rect(width*0.35, height*0.83, width*0.30, height*0.07, 12);
   g.fill(255); g.textSize(height*0.030);
-  g.text("Jogar Quiz!", width/2, height*0.88 + height*0.035);
+  g.text("Jogar Quiz!", width/2, height*0.83 + height*0.035);
   g.strokeWeight(1);
 }
