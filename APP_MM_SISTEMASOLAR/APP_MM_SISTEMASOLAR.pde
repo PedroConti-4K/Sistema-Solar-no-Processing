@@ -10,9 +10,11 @@ Planet sun, mercurio, venus, earth, mars, jupiter, saturn, uranus, neptune;
 
 int estado = 0;
 int planetaClicado = -1;
+int nivelQuiz = 0; 
 int perguntaAtual = 0;
 int pontuacao = 0;
 boolean respondeu = false, acertou = false, quizFim = false;
+
 
 PGraphics ui;
 
@@ -116,6 +118,7 @@ void draw() {
   if (estado == 1) desenhaInfo(ui);
   if (estado == 2) desenhaQuiz(ui);
   if (estado == 3) desenhaCreditos(ui);
+  if (estado == 4) desenhaSelecaoNivel(ui);
 
   ui.endDraw();
   image(ui, 0, 0);
@@ -151,14 +154,15 @@ void mousePressed() {
     // Botão Quiz (posição 0.83)
     if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.83 && mouseY < height*0.83 + height*0.07) {
       perguntaAtual = 0; pontuacao = 0; respondeu = false; acertou = false; quizFim = false;
-      estado = 2;
+      estado = 4;
     }
+    return;
   }
 
   if (estado == 2) {
     if (quizFim) {
       if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.62 && mouseY < height*0.62 + height*0.07) {
-        perguntaAtual = 0; pontuacao = 0; respondeu = false; acertou = false; quizFim = false;
+        perguntaAtual = 0; pontuacao = 0; respondeu = false; acertou = false; quizFim = false; estado = 4;
       }
       if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.72 && mouseY < height*0.72 + height*0.07) {
         estado = 0;
@@ -201,6 +205,25 @@ void mousePressed() {
   if (estado == 3) {
     if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.78 && mouseY < height*0.78 + height*0.07) {
       estado = 0;
+      selectedPlanetObj = null;
+      planetaClicado = -1;
+    }
+  }
+  if (estado == 4) {
+    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.42 && mouseY < height*0.42 + height*0.08) {
+      nivelQuiz = 0; perguntaAtual = 0; pontuacao = 0; respondeu = false; acertou = false; quizFim = false;
+      estado = 2;
+    }
+    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.55 && mouseY < height*0.55 + height*0.08) {
+      nivelQuiz = 1; perguntaAtual = 0; pontuacao = 0; respondeu = false; acertou = false; quizFim = false;
+      estado = 2;
+    }
+    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.68 && mouseY < height*0.68 + height*0.08) {
+      nivelQuiz = 2; perguntaAtual = 0; pontuacao = 0; respondeu = false; acertou = false; quizFim = false;
+      estado = 2;
+    }
+    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.82 && mouseY < height*0.82 + height*0.07) {
+      estado = 1;
     }
   }
 }

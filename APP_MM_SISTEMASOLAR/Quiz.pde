@@ -24,7 +24,11 @@ void desenhaQuiz(PGraphics g) {
     g.strokeWeight(1);
     return;
   }
-
+  g.fill(0, 0, 20, 220);
+  g.stroke(255, 220, 50);
+  g.strokeWeight(2);
+  g.rect(width*0.05, height*0.05, width*0.90, height*0.90, 16);
+  g.strokeWeight(1);
   g.textSize(height*0.026); g.fill(255, 220, 50);
   g.text("Pergunta " + (perguntaAtual+1) + " de 5", width/2, height*0.10);
   g.fill(255); g.textSize(height*0.038);
@@ -70,4 +74,42 @@ void desenhaOpcoes(PGraphics g, String a, String b, String c, String d, int corr
     g.text("Proxima ->", width/2, height*0.92 + height*0.035);
     g.strokeWeight(1);
   }
+}
+void desenhaSelecaoNivel(PGraphics g) {
+  g.fill(0, 0, 20, 220);
+  g.stroke(255, 220, 50);
+  g.strokeWeight(2);
+  g.rect(width*0.05, height*0.05, width*0.90, height*0.90, 16);
+  g.strokeWeight(1);
+  g.textSize(height*0.050); g.fill(255, 220, 50);
+  g.text("Escolha o Nivel", width/2, height*0.20);
+
+  g.textSize(height*0.028); g.fill(200, 220, 255);
+  g.text("Qual nivel de dificuldade voce quer jogar?", width/2, height*0.32);
+
+  boolean hoverFacil = mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.42 && mouseY < height*0.42 + height*0.08;
+  g.fill(40, 160, 80); if (hoverFacil) { g.stroke(255); g.strokeWeight(3); } else { g.noStroke(); }
+  g.rect(width*0.35, height*0.42, width*0.30, height*0.08, 12);
+  g.fill(255); g.textSize(height*0.032);
+  g.text("Facil", width/2, height*0.42 + height*0.040);
+
+  boolean hoverMedio = mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.55 && mouseY < height*0.55 + height*0.08;
+  g.fill(200, 140, 30); if (hoverMedio) { g.stroke(255); g.strokeWeight(3); } else { g.noStroke(); }
+  g.rect(width*0.35, height*0.55, width*0.30, height*0.08, 12);
+  g.fill(255); g.textSize(height*0.032);
+  g.text("Medio", width/2, height*0.55 + height*0.040);
+
+  boolean hoverDificil = mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.68 && mouseY < height*0.68 + height*0.08;
+  g.fill(180, 40, 40); if (hoverDificil) { g.stroke(255); g.strokeWeight(3); } else { g.noStroke(); }
+  g.rect(width*0.35, height*0.68, width*0.30, height*0.08, 12);
+  g.fill(255); g.textSize(height*0.032);
+  g.text("Dificil", width/2, height*0.68 + height*0.040);
+
+  boolean hoverVoltar = mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.82 && mouseY < height*0.82 + height*0.07;
+  g.fill(70, 70, 70); if (hoverVoltar) { g.stroke(255); g.strokeWeight(3); } else { g.noStroke(); }
+  g.rect(width*0.35, height*0.82, width*0.30, height*0.07, 12);
+  g.fill(255); g.textSize(height*0.028);
+  g.text("Voltar", width/2, height*0.82 + height*0.035);
+
+  g.strokeWeight(1);
 }
