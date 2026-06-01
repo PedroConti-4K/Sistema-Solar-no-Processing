@@ -10,11 +10,13 @@ Planet sun, mercurio, venus, earth, mars, jupiter, saturn, uranus, neptune;
 
 int estado = 0;
 int planetaClicado = -1;
-int nivelQuiz = 0; 
 int perguntaAtual = 0;
 int pontuacao = 0;
+float botaoLargura = 120;
+float botaoAltura  = 40;
+float x;
+float y;
 boolean respondeu = false, acertou = false, quizFim = false;
-
 
 PGraphics ui;
 
@@ -51,7 +53,35 @@ void setup() {
 
 void draw() {
   background(10, 10, 30);
+  
+  ui.beginDraw();
+  ui.clear();
+  ui.textAlign(CENTER, CENTER);
 
+  x = width - botaoLargura - 10;
+  y = 20;
+  boolean hoverSair = mouseX > x && mouseX < x + botaoLargura &&
+                      mouseY > y && mouseY < y + botaoAltura;
+
+  ui.fill(255, 0, 0);
+
+  if (hoverSair) {
+    ui.stroke(255);
+    ui.strokeWeight(3);
+  } else {
+    ui.noStroke();
+  }
+
+  ui.rect(x, y, botaoLargura, botaoAltura, 12);
+
+  ui.fill(255);
+  ui.textSize(height * 0.03);
+  ui.text("X",
+          x + botaoLargura/2,
+          y + botaoAltura/2);
+
+  ui.strokeWeight(1);
+  
   if (selectedPlanetObj != null && (estado == 0 || estado == 1)) {
     targetCamTarget = selectedPlanetObj.getAbsolutePosition();
     float offsetZoom = selectedPlanetObj.isSaturn
@@ -93,10 +123,6 @@ void draw() {
   hint(DISABLE_DEPTH_TEST);
   noLights();
 
-  ui.beginDraw();
-  ui.clear();
-  ui.textAlign(CENTER, CENTER);
-
   if (estado == 0 || estado == 1) {
     String[] nomesPlanetas = {"Mercúrio", "Vênus", "Terra", "Marte", "Júpiter", "Saturno", "Urano", "Netuno"};
     ui.fill(255, 255, 255, 200);
@@ -118,7 +144,6 @@ void draw() {
   if (estado == 1) desenhaInfo(ui);
   if (estado == 2) desenhaQuiz(ui);
   if (estado == 3) desenhaCreditos(ui);
-  if (estado == 4) desenhaSelecaoNivel(ui);
 
   ui.endDraw();
   image(ui, 0, 0);
@@ -127,6 +152,11 @@ void draw() {
 }
 
 void mousePressed() {
+  if (mouseX > x && mouseX < x + botaoLargura &&
+    mouseY > y && mouseY < y + botaoAltura) {
+  exit();
+}
+
   if (estado == 0 || estado == 1) {
     Planet[] listaPlanetas = {mercurio, venus, earth, mars, jupiter, saturn, uranus, neptune};
     for (int i = 0; i < listaPlanetas.length; i++) {
@@ -154,15 +184,14 @@ void mousePressed() {
     // Botão Quiz (posição 0.83)
     if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.83 && mouseY < height*0.83 + height*0.07) {
       perguntaAtual = 0; pontuacao = 0; respondeu = false; acertou = false; quizFim = false;
-      estado = 4;
+      estado = 2;
     }
-    return;
   }
 
   if (estado == 2) {
     if (quizFim) {
       if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.62 && mouseY < height*0.62 + height*0.07) {
-        perguntaAtual = 0; pontuacao = 0; respondeu = false; acertou = false; quizFim = false; estado = 4;
+        perguntaAtual = 0; pontuacao = 0; respondeu = false; acertou = false; quizFim = false;
       }
       if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.72 && mouseY < height*0.72 + height*0.07) {
         estado = 0;
@@ -205,25 +234,6 @@ void mousePressed() {
   if (estado == 3) {
     if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.78 && mouseY < height*0.78 + height*0.07) {
       estado = 0;
-      selectedPlanetObj = null;
-      planetaClicado = -1;
-    }
-  }
-  if (estado == 4) {
-    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.42 && mouseY < height*0.42 + height*0.08) {
-      nivelQuiz = 0; perguntaAtual = 0; pontuacao = 0; respondeu = false; acertou = false; quizFim = false;
-      estado = 2;
-    }
-    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.55 && mouseY < height*0.55 + height*0.08) {
-      nivelQuiz = 1; perguntaAtual = 0; pontuacao = 0; respondeu = false; acertou = false; quizFim = false;
-      estado = 2;
-    }
-    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.68 && mouseY < height*0.68 + height*0.08) {
-      nivelQuiz = 2; perguntaAtual = 0; pontuacao = 0; respondeu = false; acertou = false; quizFim = false;
-      estado = 2;
-    }
-    if (mouseX > width*0.35 && mouseX < width*0.65 && mouseY > height*0.82 && mouseY < height*0.82 + height*0.07) {
-      estado = 1;
     }
   }
 }
