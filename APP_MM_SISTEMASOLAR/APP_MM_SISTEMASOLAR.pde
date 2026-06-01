@@ -13,8 +13,11 @@ int planetaClicado = -1;
 int nivelQuiz = 0; 
 int perguntaAtual = 0;
 int pontuacao = 0;
+float botaoLargura = 120;
+float botaoAltura  = 40;
+float x;
+float y;
 boolean respondeu = false, acertou = false, quizFim = false;
-
 
 PGraphics ui;
 
@@ -51,6 +54,34 @@ void setup() {
 
 void draw() {
   background(10, 10, 30);
+  
+  ui.beginDraw();
+  ui.clear();
+  ui.textAlign(CENTER, CENTER);
+  
+  x = width - botaoLargura - 10;
+  y = 20;
+  boolean hoverSair = mouseX > x && mouseX < x + botaoLargura &&
+                      mouseY > y && mouseY < y + botaoAltura;
+
+  ui.fill(255, 0, 0);
+
+  if (hoverSair) {
+    ui.stroke(255);
+    ui.strokeWeight(3);
+  } else {
+    ui.noStroke();
+  }
+
+  ui.rect(x, y, botaoLargura, botaoAltura, 12);
+
+  ui.fill(255);
+  ui.textSize(height * 0.03);
+  ui.text("X",
+          x + botaoLargura/2,
+          y + botaoAltura/2);
+
+  ui.strokeWeight(1);
 
   if (selectedPlanetObj != null && (estado == 0 || estado == 1)) {
     targetCamTarget = selectedPlanetObj.getAbsolutePosition();
@@ -93,10 +124,6 @@ void draw() {
   hint(DISABLE_DEPTH_TEST);
   noLights();
 
-  ui.beginDraw();
-  ui.clear();
-  ui.textAlign(CENTER, CENTER);
-
   if (estado == 0 || estado == 1) {
     String[] nomesPlanetas = {"Mercúrio", "Vênus", "Terra", "Marte", "Júpiter", "Saturno", "Urano", "Netuno"};
     ui.fill(255, 255, 255, 200);
@@ -127,6 +154,11 @@ void draw() {
 }
 
 void mousePressed() {
+  if (mouseX > x && mouseX < x + botaoLargura &&
+    mouseY > y && mouseY < y + botaoAltura) {
+  exit();
+}
+  
   if (estado == 0 || estado == 1) {
     Planet[] listaPlanetas = {mercurio, venus, earth, mars, jupiter, saturn, uranus, neptune};
     for (int i = 0; i < listaPlanetas.length; i++) {
